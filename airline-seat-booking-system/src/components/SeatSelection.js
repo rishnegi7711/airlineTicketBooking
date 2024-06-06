@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SeatSelection.css';
 
 const SeatSelection = () => {
   const rows = 6;
   const columns = 6;
   const initialSeats = Array.from({ length: rows }, () => Array(columns).fill(false));
+  const navigate = useNavigate();
   
   const [seats, setSeats] = useState(initialSeats);
 
@@ -14,6 +16,11 @@ const SeatSelection = () => {
       seatRow.map((seat, c) => (r === row && c === col ? !seat : seat))
     );
     setSeats(newSeats);
+  };
+
+  const handleConfirmBooking = () => {
+    alert('Booking confirmed!');
+    navigate.push('/confirm-booking'); 
   };
 
   return (
@@ -34,6 +41,9 @@ const SeatSelection = () => {
           </div>
         ))}
       </div>
+      <button className="confirm-booking-button" onClick={handleConfirmBooking}>
+        Confirm Booking
+      </button>
     </div>
   );
 };
